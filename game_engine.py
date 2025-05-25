@@ -51,7 +51,6 @@ class GameState(Enum):
 def load_image(name, scale=1.0, convert_alpha=True):
     try:
         # Use absolute path for more reliable loading
-        import os
         base_path = os.path.dirname(os.path.abspath(__file__))
         path = os.path.join(base_path, "assets", "images", name)
         print(f"Loading image: {path}")
@@ -77,7 +76,6 @@ def load_image(name, scale=1.0, convert_alpha=True):
 
 def load_sound(name):
     try:
-        import os
         base_path = os.path.dirname(os.path.abspath(__file__))
         path = os.path.join(base_path, "assets", "sounds", name)
         print(f"Loading sound: {path}")
@@ -315,27 +313,3 @@ class SaveSystem:
                 return level, collectibles
         except:
             return 0, 0  # Default values if file doesn't exist
-def load_image(name, scale=1.0, convert_alpha=True):
-    try:
-        # Use absolute path
-        base_path = os.path.dirname(os.path.abspath(__file__))
-        path = os.path.join(base_path, "assets", "images", name)
-        print(f"Attempting to load image: {path}")
-        image = pygame.image.load(path)
-        if convert_alpha:
-            image = image.convert_alpha()
-        else:
-            image = image.convert()
-        if scale != 1.0:
-            new_size = (int(image.get_width() * scale), int(image.get_height() * scale))
-            image = pygame.transform.scale(image, new_size)
-        print(f"Successfully loaded image: {path}")
-        return image
-    except pygame.error as e:
-        print(f"Failed to load image: {path}, Error: {e}")
-        # Create a placeholder image if file not found
-        surf = pygame.Surface((TILE_SIZE, TILE_SIZE), pygame.SRCALPHA)
-        pygame.draw.rect(surf, (255, 0, 255), (0, 0, TILE_SIZE, TILE_SIZE))
-        pygame.draw.line(surf, (0, 0, 0), (0, 0), (TILE_SIZE, TILE_SIZE), 2)
-        pygame.draw.line(surf, (0, 0, 0), (TILE_SIZE, 0), (0, TILE_SIZE), 2)
-        return surf

@@ -127,10 +127,10 @@ class CustomizationMenu:
                 if event.type == pygame.MOUSEBUTTONDOWN and button.is_clicked(event):
                     if i == 0:  # Change Character
                         self.state = "character"
-                        return None, None
+                        return None, None, None
                     elif i == 1:  # Change Background
                         self.state = "background"
-                        return None, None
+                        return None, None, None
                     elif i == 2:  # Back
                         return None, None, "back"
         
@@ -140,6 +140,7 @@ class CustomizationMenu:
                 if event.type == pygame.MOUSEBUTTONDOWN and button.is_clicked(event):
                     if i < len(self.character_options):  # Character selection
                         self.current_character = self.character_options[i]
+                        self.state = "main"
                         return self.current_character, None, None
                     else:  # Back button
                         self.state = "main"
@@ -151,6 +152,7 @@ class CustomizationMenu:
                 if event.type == pygame.MOUSEBUTTONDOWN and button.is_clicked(event):
                     if i < len(self.bg_options):  # Background selection
                         self.current_bg_style = self.bg_options[i]
+                        self.state = "main"
                         return None, self.current_bg_style, None
                     else:  # Back button
                         self.state = "main"
